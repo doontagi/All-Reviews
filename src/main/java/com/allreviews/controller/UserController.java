@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,18 +43,14 @@ public class UserController {
         if (errors.hasErrors()) {
             return BAD_SIGNUP;
         }
-        User newUser = userService.createUser(user);
+        userService.createUser(user);
 
         return SUCCESSFUL_SIGNUP;
     }
 
-    @PostMapping("/delete")
-    public ResponseEntity<String> signUp(@RequestBody String password, HttpSession httpSession) {
-        if (errors.hasErrors()) {
-            return BAD_SIGNUP;
-        }
-        User newUser = userService.createUser(user);
-
-        return SUCCESSFUL_SIGNUP;
+    @GetMapping("/logout")
+    public HttpStatus logout (HttpSession httpSession) {
+        httpSession.removeAttribute("LOGIN_USER_ID");
+        return HttpStatus.OK;
     }
 }
