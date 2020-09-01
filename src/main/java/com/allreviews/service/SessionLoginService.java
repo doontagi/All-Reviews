@@ -18,7 +18,8 @@ public class SessionLoginService implements LoginService{
         if (user == null) {
             throw new RuntimeException("No user has that id");
         }
-        if (user.getPassword() != SHA256Util.encrypt(password)) {
+        String encryptedPassword = SHA256Util.encrypt(password);
+        if (!user.getPassword().equals(encryptedPassword)) {
             throw new RuntimeException("Incorrect Password");
         }
         return user;
