@@ -21,15 +21,4 @@ public class UserService {
         }
         return user;
     }
-
-    public User deleteUser(String username, String password) {
-        User user = userRepo.findByUsername(username);
-        if (user == null) {
-            throw new RuntimeException("No user has that id");
-        }
-        if (user.getPassword() != SHA256Util.encrypt(password)) {
-            throw new RuntimeException("Incorrect Password");
-        }
-        return user;
-    }
 }
