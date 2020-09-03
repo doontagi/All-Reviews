@@ -2,6 +2,7 @@ package com.allreviews.controller;
 
 import com.allreviews.DTO.LoginRequestDTO;
 import com.allreviews.User;
+import com.allreviews.aop.LoginCheck;
 import com.allreviews.service.LoginService;
 import com.allreviews.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,7 @@ public class UserController {
     }
 
     @GetMapping("/logout")
+    @LoginCheck
     public HttpStatus logout (HttpSession httpSession) {
         httpSession.removeAttribute("LOGIN_USER_ID");
         return HttpStatus.OK;
