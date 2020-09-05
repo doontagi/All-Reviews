@@ -32,7 +32,7 @@ public class Review {
     private String contents;
 
     @ManyToOne
-    @JoinColumn(name="user_id")
+    @JoinColumn(name = "user_id")
     @NotNull
     private User creator;
 

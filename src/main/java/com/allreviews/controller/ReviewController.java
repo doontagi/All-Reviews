@@ -23,6 +23,15 @@ public class ReviewController {
     @Autowired
     ReviewService reviewService;
 
+    /**
+     * 리뷰 생성.
+     *
+     * @author hanul
+     *
+     * @param session 사용자의 세션
+     * @param review 생성하고자 하는 리뷰
+     * @return Http 상태 코드
+     */
     @PostMapping
     @LoginCheck
     public HttpStatus createReview(HttpSession session, @RequestBody Review review) {
@@ -30,30 +39,55 @@ public class ReviewController {
         return HttpStatus.OK;
     }
 
+    /**
+     * 리뷰 조회.
+     *
+     * @author hanul
+     *
+     * @return 모든 리뷰의 리스트
+     */
     @GetMapping
     public List<Review> getReviews() {
         return reviewService.getReviews();
     }
 
-    @GetMapping("/test")
-    public void test() {
-        reviewService.test();
-    }
-
+    /**
+     * 인기순 리뷰 조회.
+     *
+     * @author hanul
+     *
+     * @return 인기순으로 정렬된 모든 리뷰의 리스트
+     */
     @GetMapping("/popular")
     public List<Review> getReviewsByLike() {
         return reviewService.getReviewsByLike();
     }
 
-    @GetMapping("/{index}")
-    public Review getReview(@PathVariable long index) {
-       return reviewService.getReview(index);
+    /**
+     * 특정 리뷰 조회.
+     *
+     * @author hanul
+     *
+     * @param id 조회하고자 하는 리뷰의 아이디
+     * @return 조회하고자 하는 리뷰 객
+     */
+    @GetMapping("/{id}")
+    public Review getReview(@PathVariable long id) {
+       return reviewService.getReview(id);
     }
 
-    @DeleteMapping("/{index}")
+    /**
+     * 특정 리뷰 삭제.
+     *
+     * @author hanul
+     *
+     * @param session 사용자의 세션
+     * @param id 삭제하고자 하는 리뷰의 아이디
+     */
+    @DeleteMapping("/{id}")
     @LoginCheck
-    public void deleteReview(HttpSession session, @PathVariable long index) {
-        reviewService.deleteReview(index, (String) session.getAttribute("LOGIN_USER_ID"));
+    public void deleteReview(HttpSession session, @PathVariable long id) {
+        reviewService.deleteReview(id, (String) session.getAttribute("LOGIN_USER_ID"));
     }
 
 }

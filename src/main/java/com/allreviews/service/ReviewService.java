@@ -6,13 +6,11 @@ import com.allreviews.repository.ReviewRepository;
 import com.allreviews.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpStatusCodeException;
 
 import java.util.List;
-import java.util.Random;
 
 @Service
 public class ReviewService {
@@ -24,7 +22,7 @@ public class ReviewService {
     UserRepository userRepo;
 
     /**
-     * 새로운 리뷰 추가
+     * 새로운 리뷰 추가.
      *
      * @author hanul
      *
@@ -37,7 +35,7 @@ public class ReviewService {
     }
 
     /**
-     * 모든 리뷰 조회
+     * 모든 리뷰 조회.
      *
      * @author hanul
      *
@@ -48,7 +46,7 @@ public class ReviewService {
     }
 
     /**
-     * 특정 리뷰 조회
+     * 특정 리뷰 조회.
      *
      * @author hanul
      *
@@ -60,7 +58,7 @@ public class ReviewService {
     }
 
     /**
-     * 인기 순으로 정렬된 모든 리뷰 조회
+     * 인기 순으로 정렬된 모든 리뷰 조회.
      *
      * @author hanul
      *
@@ -73,7 +71,7 @@ public class ReviewService {
     }
 
     /**
-     * 특정 review 삭제
+     * 특정 review 삭제.
      *
      * @author hanul
      *
@@ -84,7 +82,8 @@ public class ReviewService {
        Review review = reviewRepo.findById(index).get();
        User creator = review.getCreator();
        if (!creator.getUsername().equals(username)) {
-           throw new HttpStatusCodeException(HttpStatus.UNAUTHORIZED, "Only creator can delete his review") {};
+           throw new HttpStatusCodeException(HttpStatus.UNAUTHORIZED,
+                   "Only creator can delete his review") { };
        }
        reviewRepo.delete(review);
     }
