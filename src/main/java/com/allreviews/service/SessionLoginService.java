@@ -7,13 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SessionLoginService implements LoginService{
+public class SessionLoginService implements LoginService {
 
     @Autowired
     UserRepository userRepo;
 
     /**
-     * 유저 로그인
+     * 유저 로그인.
      *
      * @author hanul
      *

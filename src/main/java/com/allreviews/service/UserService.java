@@ -13,7 +13,7 @@ public class UserService {
     UserRepository userRepo;
 
     /**
-     * 유저 생
+     * 유저 생성.
      *
      * @author hanul
      *

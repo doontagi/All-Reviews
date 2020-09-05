@@ -19,8 +19,10 @@ import javax.validation.Valid;
 @RestController
 public class UserController {
 
-    private static final ResponseEntity<String> SUCCESSFUL_SIGNUP = new ResponseEntity<String>("Successful Sign-up", HttpStatus.OK);
-    private static final ResponseEntity<String> BAD_SIGNUP = new ResponseEntity<String>("Wrong form", HttpStatus.BAD_REQUEST);
+    private static final ResponseEntity<String> SUCCESSFUL_SIGNUP =
+            new ResponseEntity<String>("Successful Sign-up", HttpStatus.OK);
+    private static final ResponseEntity<String> BAD_SIGNUP =
+            new ResponseEntity<String>("Wrong form", HttpStatus.BAD_REQUEST);
 
     @Autowired
     UserService userService;
@@ -28,17 +30,36 @@ public class UserController {
     @Autowired
     LoginService loginService;
 
+    /**
+     * 로그인 요청.
+     *
+     * @author hanul
+     *
+     * @param loginRequestDTO 로그인하고자 하는 유저의 username, password를 담은 DTO
+     * @param session 사용자의 session
+     * @return Http 상태 코드
+     */
     @PostMapping("/login")
-    public HttpStatus login(@RequestBody LoginRequestDTO loginRequestDTO, HttpSession httpSession) {
+    public HttpStatus login(@RequestBody LoginRequestDTO loginRequestDTO, HttpSession session) {
         User user = loginService.login(loginRequestDTO.getUsername(), loginRequestDTO.getPassword());
         if (user == null) {
             return HttpStatus.UNAUTHORIZED;
         } else {
-            httpSession.setAttribute("LOGIN_USER_ID", loginRequestDTO.getUsername());
+            session.setAttribute("LOGIN_USER_ID", loginRequestDTO.getUsername());
             return HttpStatus.OK;
         }
     }
 
+
+    /**
+     * 회원가입 요청.
+     *
+     * @author hanul
+     *
+     * @param user 회원가입 하고자 하는 유저 정보를 담은 객체
+     * @param errors 회원가입 요청이 정상적이지 않은 경우의 error 정보
+     * @return Http 상태 코드를 포함한 ResponseEntity 객체
+     */
     @PostMapping("/signup")
     public ResponseEntity<String> signUp(@RequestBody @Valid User user, Errors errors) {
         if (errors.hasErrors()) {
@@ -49,10 +70,18 @@ public class UserController {
         return SUCCESSFUL_SIGNUP;
     }
 
+    /**
+     * 로그아웃 요청.
+     *
+     * @author hanul
+     *
+     * @param session 사용자의 세션
+     * @return Http 상태 코드
+     */
     @GetMapping("/logout")
     @LoginCheck
-    public HttpStatus logout (HttpSession httpSession) {
-        httpSession.removeAttribute("LOGIN_USER_ID");
+    public HttpStatus logout(HttpSession session) {
+        session.removeAttribute("LOGIN_USER_ID");
         return HttpStatus.OK;
     }
 }
