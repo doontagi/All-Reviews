@@ -35,5 +35,5 @@ public class User {
     @NotNull
     private String fullname;
 
-    private Long point;
+    private Long point = 0L;
 }

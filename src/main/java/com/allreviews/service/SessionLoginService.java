@@ -12,6 +12,15 @@ public class SessionLoginService implements LoginService{
     @Autowired
     UserRepository userRepo;
 
+    /**
+     * 유저 로그인
+     *
+     * @author hanul
+     *
+     * @param username 로그인하고 싶은 user의 username
+     * @param password 로그인하고 싶은 user의 password
+     * @return 로그인에 성공한 user 객체
+     */
     @Override
     public User login(String username, String password) {
         User user = userRepo.findByUsername(username);

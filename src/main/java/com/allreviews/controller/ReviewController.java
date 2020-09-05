@@ -31,8 +31,23 @@ public class ReviewController {
     }
 
     @GetMapping
-    public List<Review> getReview() {
-        return reviewService.getReview();
+    public List<Review> getReviews() {
+        return reviewService.getReviews();
+    }
+
+    @GetMapping("/test")
+    public void test() {
+        reviewService.test();
+    }
+
+    @GetMapping("/popular")
+    public List<Review> getReviewsByLike() {
+        return reviewService.getReviewsByLike();
+    }
+
+    @GetMapping("/{index}")
+    public Review getReview(@PathVariable long index) {
+       return reviewService.getReview(index);
     }
 
     @DeleteMapping("/{index}")

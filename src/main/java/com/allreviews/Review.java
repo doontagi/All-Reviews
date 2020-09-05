@@ -35,4 +35,6 @@ public class Review {
     @JoinColumn(name="user_id")
     @NotNull
     private User creator;
+
+    private Long likes = 0L;
 }
