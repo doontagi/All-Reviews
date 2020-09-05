@@ -12,13 +12,19 @@ public class UserService {
     @Autowired
     UserRepository userRepo;
 
-    public User createUser(User user) {
+    /**
+     * 유저 생
+     *
+     * @author hanul
+     *
+     * @param user 생성을 원하는 유저 객체
+     */
+    public void createUser(User user) {
         user.setPassword(SHA256Util.encrypt(user.getPassword()));
         if (userRepo.findByUsername(user.getUsername()) == null) {
             userRepo.save(user);
         } else {
             throw new RuntimeException("Duplicate Username");
         }
-        return user;
     }
 }
