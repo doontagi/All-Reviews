@@ -9,3 +9,6 @@
 
 https://github.com/doontagi/All-Reviews/wiki
 DB 구조와 API 명세를 위한 wiki입니다.
+
+# 사용 기술
+Java11, Spring Boot 2.3, Gradle, MySQL 8.0.21, Redis, Git
